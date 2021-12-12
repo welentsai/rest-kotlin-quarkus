@@ -88,12 +88,22 @@
                 $("#connect").attr("disabled", true);
                 $("#name").attr("disabled", true);
                 $("#msg").focus();
+                sendReadyMessage();
             };
             socket.onmessage = function (m) {
                 console.log("Got message: " + m.data);
                 $("#chat").append(m.data + "\n");
                 scrollToBottom();
             };
+        }
+    };
+
+    var sendReadyMessage = function () {
+        if (connected) {
+            const value = "_ready_";
+            console.log("Sending " + value);
+            socket.send(value);
+            $("#msg").val("");
         }
     };
 
