@@ -1,61 +1,35 @@
 # rest-kotlin-quarkus Project
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+This evaluation project uses Quarkus, Kotlin, WebSocket and Arrow
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
-## Running the application in dev mode
+## Running the application in IntelliJ
 
-You can run your application in dev mode that enables live coding using:
-```shell script
-./mvnw compile quarkus:dev
-```
+![](img/runConfig.png)
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
 
-## Packaging and running the application
+## Set http port at src/resources/application.properties, the service listening on http://localhost:8080
 
-The application can be packaged using:
-```shell script
-./mvnw package
-```
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+![img.png](img/properties.png)
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+## Resources List
 
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
-```
+![img_1.png](img/resourceList.png)
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
 
-## Creating a native executable
+## Chat Room Screenshot
 
-You can create a native executable using: 
-```shell script
-./mvnw package -Pnative
-```
+![img_2.png](img/wl_chat.png)
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./mvnw package -Pnative -Dquarkus.native.container-build=true
-```
+![img.png](img/brandy_chat.png)
 
-You can then execute your native executable with: `./target/rest-kotlin-quarkus-1.0.0-SNAPSHOT-runner`
+![img.png](img/susan_chat.png)
 
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
-
-## Related Guides
-
-- Kotlin ([guide](https://quarkus.io/guides/kotlin)): Write your services in Kotlin
-- RESTEasy JAX-RS ([guide](https://quarkus.io/guides/rest-json)): REST endpoint framework implementing JAX-RS and more
-
-## Provided Code
-
-### RESTEasy JAX-RS
-
-Easily start your RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
+### Reference
+https://code.quarkus.io/
+https://github.com/quarkusio/quarkus-quickstarts
+https://quarkus.io/guides/kotlin
+https://arrow-kt.io/
+https://www.youtube.com/watch?v=i4lCTOgfjMs&t=4061s
+https://www.youtube.com/watch?v=SIr7mcnVy98
