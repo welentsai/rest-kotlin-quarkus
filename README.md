@@ -9,9 +9,11 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 ![](img/runConfig.png)
 
 
-## Set http port at src/resources/application.properties, the service listening on http://localhost:8080
+## Set http port at **src/resources/application.properties**
+
 
 ![img.png](img/properties.png)
+the service listening on http://localhost:8080
 
 ## Resources List
 
@@ -27,9 +29,9 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 ![img.png](img/susan_chat.png)
 
 ### Reference
-https://code.quarkus.io/
-https://github.com/quarkusio/quarkus-quickstarts
-https://quarkus.io/guides/kotlin
-https://arrow-kt.io/
-https://www.youtube.com/watch?v=i4lCTOgfjMs&t=4061s
-https://www.youtube.com/watch?v=SIr7mcnVy98
+* https://code.quarkus.io/
+* https://github.com/quarkusio/quarkus-quickstarts
+* https://quarkus.io/guides/kotlin
+* https://arrow-kt.io/
+* https://www.youtube.com/watch?v=i4lCTOgfjMs&t=4061s
+* https://www.youtube.com/watch?v=SIr7mcnVy98
