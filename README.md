@@ -12,7 +12,7 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 ## Set http port at **src/resources/application.properties**
 
 
-![img.png](img/properties.png)
+![img.png](img/properties.png)  
 the service listening on http://localhost:8080
 
 ## Resources List
