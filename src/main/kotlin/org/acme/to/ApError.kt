@@ -8,3 +8,13 @@ sealed class ApError(val message: String = "") {
 
     fun toResponse() = Response.ok(message).status(200).build()
 }
+
+sealed class IdError(val message: String = "") {
+    object  IdLengthError: IdError("ID length is not correct!")
+    object  CountyCodeError: IdError("County code is not correct!")
+    object  GenderCodeError: IdError("Gender code is not correct!")
+    object  SerialCodeError: IdError("Serial code is not correct!")
+    object  CheckSumError: IdError("FAIL!! ID is invalid!!")
+
+    override fun toString() = message
+}

@@ -23,6 +23,7 @@ class ChatResource {
     @OnClose
     fun onClose(session: Session, @PathParam("username") username: String) {
         logger.info("user {} is onClose", username)
+        sessions.remove(username)
     }
 
     @OnError
@@ -32,7 +33,7 @@ class ChatResource {
 
     @OnMessage
     fun onMessage(message: String, @PathParam("username") username: String) {
-//        logger.info("user {} is onMessage, message is {}", username, message)
+        logger.info("user {} is onMessage, message is {}", username, message)
         if (message.equals("_ready_", ignoreCase = true)) {
             broadcast("User " + username + " joined")
         } else {
