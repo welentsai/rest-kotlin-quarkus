@@ -16,5 +16,6 @@ sealed class IdError(val message: String = "") {
     object  SerialCodeError: IdError("Serial code is not correct!")
     object  CheckSumError: IdError("FAIL!! ID is invalid!!")
 
+    fun toResponse() = Response.ok(message).status(200).build()
     override fun toString() = message
 }

@@ -9,7 +9,6 @@ import javax.enterprise.context.ApplicationScoped
 class GreetingService {
 
 //    val right: Either<String, Int> = Either.Right(5)
-
     suspend fun greeting(name: String): String {
         return "Hi $name, hello from greeting service !"
     }
@@ -69,5 +68,4 @@ class GreetingService {
         if (id.length != 10) return false
         return true
     }
-
 }

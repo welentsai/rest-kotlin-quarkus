@@ -3,6 +3,7 @@ package org.acme.resource
 import kotlinx.coroutines.runBlocking
 import org.acme.service.GreetingService
 import org.acme.to.Greeting
+import javax.enterprise.inject.Default
 import javax.inject.Inject
 import javax.ws.rs.GET
 import javax.ws.rs.Path
@@ -22,7 +23,7 @@ class GreetingResource {
      * Add @field: xxx in this example. @Default is used as the qualifier, explicitly specifying the use of the default bean.
      */
     @Inject
-    //@field: Default
+    @field: Default
     lateinit var service: GreetingService
 
     // default route
@@ -47,6 +48,18 @@ class GreetingResource {
     @Path("/arrow/{name}")
     fun arrowGreeting(@PathParam("name") name: String): Response =
         service.arrowGreeting(name).fold(
+            ifLeft = { err -> err.toResponse() },
+            ifRight = { str ->
+                println(str)
+                Response.ok(str).status(201).build()
+            }
+        )
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/arrow/check/{id}")
+    fun arrowIdCheck(@PathParam("id") id: String): Response =
+        service.arrowIdCheck(id).fold(
             ifLeft = { err -> err.toResponse() },
             ifRight = { str ->
                 println(str)

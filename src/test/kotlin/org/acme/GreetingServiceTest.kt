@@ -4,12 +4,14 @@ import io.quarkus.test.junit.QuarkusTest
 import org.acme.service.GreetingService
 import org.acme.to.IdError
 import org.junit.jupiter.api.Test
+import javax.enterprise.inject.Default
 import javax.inject.Inject
 
 @QuarkusTest
 class GreetingServiceTest {
 
     @Inject
+    @field: Default
     lateinit var service: GreetingService
 
     @Test
