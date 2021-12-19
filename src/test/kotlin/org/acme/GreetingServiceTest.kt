@@ -22,7 +22,6 @@ class GreetingServiceTest {
         arrowCheck("A323456789")
         arrowCheck("A123456T89")
         arrowCheck("A123456788")
-        arrowCheck("L122734014")
     }
 
     fun arrowCheck(id: String) {

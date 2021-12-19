@@ -8,7 +8,7 @@ import javax.enterprise.context.ApplicationScoped
 @ApplicationScoped
 class GreetingService {
 
-//    val right: Either<String, Int> = Either.Right(5)
+    //    val right: Either<String, Int> = Either.Right(5)
     suspend fun greeting(name: String): String {
         return "Hi $name, hello from greeting service !"
     }
@@ -16,14 +16,13 @@ class GreetingService {
     fun arrowGreeting(name: String): Either<ApError, String> = Either.Left(ApError.FormatError)
 //        Either.Right("Hi $name, hello from arrow greeting service !")
 
-    fun arrowIdCheck(id: String): Either<IdError, String> {
-        if (!isValidLength(id)) return Either.Left(IdError.IdLengthError)
-        if (!isvalidCountryCode(id)) return Either.Left(IdError.CountyCodeError)
-        if (!isValidGenderCode(id)) return Either.Left(IdError.GenderCodeError)
-        if (!isValidSerialCode(id)) return Either.Left(IdError.SerialCodeError)
-        if (!isValidCheckSum(id)) return Either.Left(IdError.CheckSumError)
-
-        return Either.Right("PASS!! ID is valid !!")
+    fun arrowIdCheck(id: String): Either<IdError, String> = when {
+        !isValidLength(id) -> Either.Left(IdError.IdLengthError)
+        !isvalidCountryCode(id) -> Either.Left(IdError.CountyCodeError)
+        !isValidGenderCode(id) -> Either.Left(IdError.GenderCodeError)
+        !isValidSerialCode(id) -> Either.Left(IdError.SerialCodeError)
+        !isValidCheckSum(id) -> Either.Left(IdError.CheckSumError)
+        else -> Either.Right("PASS!! ID is valid !!")
     }
 
     private fun isValidCheckSum(id: String): Boolean {
