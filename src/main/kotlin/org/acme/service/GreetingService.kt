@@ -13,19 +13,21 @@ class GreetingService {
         return "Hi $name, hello from greeting service !"
     }
 
-    fun arrowGreeting(name: String): Either<ApError, String> = Either.Left(ApError.FormatError)
-//        Either.Right("Hi $name, hello from arrow greeting service !")
+    fun arrowGreeting(name: String): Either<ApError, String> =
+        Either.Right("Hi $name, hello from arrow greeting service !")
 
-    fun arrowIdCheck(id: String): Either<IdError, String> = when {
-        !isValidLength(id) -> Either.Left(IdError.IdLengthError)
-        !isvalidCountryCode(id) -> Either.Left(IdError.CountyCodeError)
-        !isValidGenderCode(id) -> Either.Left(IdError.GenderCodeError)
-        !isValidSerialCode(id) -> Either.Left(IdError.SerialCodeError)
-        !isValidCheckSum(id) -> Either.Left(IdError.CheckSumError)
-        else -> Either.Right("PASS!! ID is valid !!")
-    }
+    fun arrowIdCheck(id: String): Either<IdError, String> =
+        isValidLength(id).flatMap { id ->
+            isvalidCountryCode(id).flatMap { id ->
+                isValidGenderCode(id).flatMap { id ->
+                    isValidSerialCode(id).flatMap { id ->
+                        isValidCheckSum(id)
+                    }
+                }
+            }
+        }
 
-    private fun isValidCheckSum(id: String): Boolean {
+    private fun isValidCheckSum(id: String): Either<IdError, String> {
         val conver = "ABCDEFGHJKLMNPQRSTUVXYWZIO"
         val weights = intArrayOf(1, 9, 8, 7, 6, 5, 4, 3, 2, 1, 1)
         val newId = String.format("%d", conver.indexOf(id[0]) + 10) + id.substring(1)
@@ -38,33 +40,33 @@ class GreetingService {
         }
         println("   checksum = $checkSum")
 
-        if (checkSum % 10 != 0) return false
-        return true
+        if (checkSum % 10 != 0) return Either.Left(IdError.CheckSumError)
+        return Either.Right("PASS!! ID is valid !!")
     }
 
-    private fun isValidSerialCode(id: String): Boolean {
+    private fun isValidSerialCode(id: String): Either<IdError, String> {
         val subId = id.substring(2)
         subId.forEach {
             val code = it.code
-            if (code < 48 || code > 57) return false
+            if (code < 48 || code > 57) return Either.Left(IdError.SerialCodeError)
         }
-        return true
+        return Either.Right(id)
     }
 
-    private fun isValidGenderCode(id: String): Boolean {
+    private fun isValidGenderCode(id: String): Either<IdError, String> {
         val genderCode = id[1].code
-        if (genderCode != 49 && genderCode != 50) return false
-        return true
+        if (genderCode != 49 && genderCode != 50) return Either.Left(IdError.GenderCodeError)
+        return Either.Right(id)
     }
 
-    private fun isvalidCountryCode(id: String): Boolean {
+    private fun isvalidCountryCode(id: String): Either<IdError, String> {
         val countyCode = id[0].code
-        if (countyCode < 65 || countyCode > 90) return false
-        return true
+        if (countyCode < 65 || countyCode > 90) return Either.Left(IdError.CountyCodeError)
+        return Either.Right(id)
     }
 
-    private fun isValidLength(id: String): Boolean {
-        if (id.length != 10) return false
-        return true
+    private fun isValidLength(id: String): Either<IdError, String> {
+        if (id.length != 10) return Either.Left(IdError.IdLengthError)
+        return Either.Right(id)
     }
 }
