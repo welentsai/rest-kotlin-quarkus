@@ -58,7 +58,7 @@ class GreetingResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/arrow/check/{id}")
-    fun arrowIdCheck(@PathParam("id") id: String): Response =
+    fun arrowIdCheck(@PathParam("id") id: String): Response = runBlocking {
         service.arrowIdCheck(id).fold(
             ifLeft = { err -> err.toResponse() },
             ifRight = { str ->
@@ -66,4 +66,5 @@ class GreetingResource {
                 Response.ok(str).status(201).build()
             }
         )
+    }
 }

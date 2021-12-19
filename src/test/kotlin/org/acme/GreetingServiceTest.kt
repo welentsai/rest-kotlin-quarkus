@@ -1,6 +1,7 @@
 package org.acme
 
 import io.quarkus.test.junit.QuarkusTest
+import kotlinx.coroutines.runBlocking
 import org.acme.service.GreetingService
 import org.acme.to.IdError
 import org.junit.jupiter.api.Test
@@ -25,12 +26,13 @@ class GreetingServiceTest {
     }
 
     fun arrowCheck(id: String) {
-        println("ID = $id")
-        val result = service.arrowIdCheck(id.trim()).fold(
-            ifLeft = {err -> err.toString()},
-            ifRight = {str -> str}
-        )
-        println("   result = $result")
-
+        runBlocking {
+            println("ID = $id")
+            val result = service.arrowIdCheck(id.trim()).fold(
+                ifLeft = {err -> err.toString()},
+                ifRight = {str -> str}
+            )
+            println("   result = $result")
+        }
     }
 }

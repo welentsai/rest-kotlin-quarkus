@@ -1,6 +1,7 @@
 package org.acme.service
 
 import arrow.core.*
+import arrow.core.computations.either
 import org.acme.to.ApError
 import org.acme.to.IdError
 import javax.enterprise.context.ApplicationScoped
@@ -16,15 +17,14 @@ class GreetingService {
     fun arrowGreeting(name: String): Either<ApError, String> =
         Either.Right("Hi $name, hello from arrow greeting service !")
 
-    fun arrowIdCheck(id: String): Either<IdError, String> =
-        isValidLength(id).flatMap { id ->
-            isvalidCountryCode(id).flatMap { id ->
-                isValidGenderCode(id).flatMap { id ->
-                    isValidSerialCode(id).flatMap { id ->
-                        isValidCheckSum(id)
-                    }
-                }
-            }
+    suspend fun arrowIdCheck(id: String): Either<IdError, String> =
+        either {
+            var valid = isValidLength(id).bind()
+            valid = isvalidCountyCode(valid).bind()
+            valid = isValidGenderCode(valid).bind()
+            valid = isValidSerialCode(valid).bind()
+            valid = isValidCheckSum(valid).bind()
+            valid
         }
 
     private fun isValidCheckSum(id: String): Either<IdError, String> {
@@ -59,7 +59,7 @@ class GreetingService {
         return Either.Right(id)
     }
 
-    private fun isvalidCountryCode(id: String): Either<IdError, String> {
+    private fun isvalidCountyCode(id: String): Either<IdError, String> {
         val countyCode = id[0].code
         if (countyCode < 65 || countyCode > 90) return Either.Left(IdError.CountyCodeError)
         return Either.Right(id)
