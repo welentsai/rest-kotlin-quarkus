@@ -19,12 +19,11 @@ class GreetingService {
 
     suspend fun arrowIdCheck(id: String): Either<IdError, String> =
         either {
-            var valid = isValidLength(id).bind()
-            valid = isvalidCountyCode(valid).bind()
-            valid = isValidGenderCode(valid).bind()
-            valid = isValidSerialCode(valid).bind()
-            valid = isValidCheckSum(valid).bind()
-            valid
+            val validId = isValidLength(id).bind()
+            isvalidCountyCode(validId).bind()
+            isValidGenderCode(validId).bind()
+            isValidSerialCode(validId).bind()
+            isValidCheckSum(validId).bind()
         }
 
     private fun isValidCheckSum(id: String): Either<IdError, String> {
